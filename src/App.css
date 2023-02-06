@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
+
+.App {
+  background-color: rgb(17, 141, 197);
+  font-family: 'IBM Plex Sans', sans-serif;
+}

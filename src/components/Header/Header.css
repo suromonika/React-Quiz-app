@@ -1,0 +1,14 @@
+.logo {
+  position: relative;
+  color: white;
+  text-shadow: 2px 2px 2px #040124a5;
+  padding: 20px;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.logo span {
+  position: absolute;
+  top: 40px;
+  font-size: 1.4rem;
+}
