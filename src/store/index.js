@@ -19,10 +19,10 @@ const resultSlice = createSlice({
   initialState: initialResultState,
   reducers: {
     correct(state) {
-      state.result = <div>Correct</div>;
+      state.result = 'Correct';
     },
     incorrect(state) {
-      state.result = <div>Incorrect</div>;
+      state.result = 'Incorrect';
     },
   },
 });
