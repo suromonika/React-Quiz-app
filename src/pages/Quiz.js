@@ -1,19 +1,27 @@
-import { useState, useId } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { currentQuestionActions, resultActions } from '../store';
 import { QUIZ_DATA } from '../constants';
 import Button from '../components/Button/Button';
 import './Quiz.css';
 
 function Quiz() {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [result, setResult] = useState();
+  const dispatch = useDispatch();
 
   const randomizeQuestion = QUIZ_DATA.sort(() =>
     Math.floor(Math.random() * (QUIZ_DATA.length + 1))
   );
 
+  const currentQuestionIndex = useSelector(
+    (state) => state.currentQuestionIndex.currentQuestionIndex
+  );
+
+  const result = useSelector((state) => state.result.result);
+
   const nextQuestionHandler = () => {
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
+    dispatch(currentQuestionActions.setCurrentQuestionIndex());
   };
+
+  console.log(currentQuestionIndex);
 
   const answerSelectHandler = (e) => {
     const selectedAnswer = e.target.value;
@@ -21,9 +29,9 @@ function Quiz() {
       (answer) => answer.correct
     ).option;
     if (selectedAnswer === correctAnswer) {
-      setResult(<div>Correct</div>);
+      dispatch(resultActions.correct());
     } else {
-      setResult(<div>Incorrect</div>);
+      dispatch(resultActions.incorrect());
     }
   };
   return (
