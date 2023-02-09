@@ -1,11 +1,17 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useRoute, useNavigate } from 'react-router-dom';
 import { currentQuestionActions, resultActions } from '../store';
 import { QUIZ_DATA } from '../constants';
 import Button from '../components/Button/Button';
 import './Quiz.css';
 
+import End from './End';
+
 function Quiz() {
+  const [disabled, setDisabled] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const randomizeQuestion = QUIZ_DATA.sort(() =>
     Math.floor(Math.random() * (QUIZ_DATA.length + 1))
@@ -19,6 +25,10 @@ function Quiz() {
 
   const nextQuestionHandler = () => {
     dispatch(currentQuestionActions.setCurrentQuestionIndex());
+    setDisabled(false);
+    if (currentQuestionIndex === randomizeQuestion.length - 1) {
+      navigate('/end');
+    }
   };
 
   console.log(currentQuestionIndex);
@@ -33,7 +43,9 @@ function Quiz() {
     } else {
       dispatch(resultActions.incorrect());
     }
+    setDisabled(true);
   };
+
   return (
     <div className='quiz-container'>
       {result}
@@ -47,6 +59,7 @@ function Quiz() {
               buttonKey={index}
               onClick={answerSelectHandler}
               value={singleAnswer.option}
+              disabled={disabled}
             >
               {singleAnswer.option}
             </Button>

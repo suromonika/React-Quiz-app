@@ -14,18 +14,29 @@ const StyledLink = styled(Link)`
   }
 `;
 
-function Button({ children, onClick, to, type = 'button', buttonKey, value }) {
+function Button({
+  children,
+  onClick,
+  to,
+  type = 'button',
+  buttonKey,
+  value,
+  disabled,
+}) {
   const Component = to ? StyledLink : 'button';
   const buttonType = to ? null : type;
 
+  const className = disabled ? 'Button Button--disabled' : 'Button';
+
   return (
     <Component
-      className='Button'
+      className={className}
       onClick={onClick}
       to={to}
       type={buttonType}
       key={buttonKey}
       value={value}
+      disabled={disabled}
     >
       {children}
     </Component>

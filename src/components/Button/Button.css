@@ -13,3 +13,7 @@
   border: 5px solid #bbbec7c4;
   scale: 1.01;
 }
+
+.Button--disabled {
+  background-color: grey;
+}

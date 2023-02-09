@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import Layout from './components/Layout/Layout';
+import End from './pages/End';
 import Start from './pages/Start';
 import Quiz from './pages/Quiz';
 import { Reset } from 'styled-reset';
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Start />} />
             <Route path='/quiz' element={<Quiz />} />
+            <Route path='/end' element={<End />} />
             <Route path='*' element={<p>Your're Lost! No Page Here!</p>} />
           </Routes>
         </Layout>
