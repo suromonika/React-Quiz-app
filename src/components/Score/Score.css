@@ -1,0 +1,10 @@
+.Score {
+  font-size: 3.5rem;
+  font-weight: 700;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-family: 'IBM Plex Sans', sans-serif;
+  text-shadow: 2px 2px 2px #040124a5;
+  padding-bottom: 5%;
+}

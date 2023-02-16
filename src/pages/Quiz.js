@@ -1,37 +1,42 @@
 import { useSelector, useDispatch } from 'react-redux';
+
 import { useState } from 'react';
-import { useRoute, useNavigate } from 'react-router-dom';
-import { currentQuestionActions, resultActions } from '../store';
-import { QUIZ_DATA } from '../constants';
+import { useNavigate } from 'react-router-dom';
+import {
+  currentQuestionActions,
+  resultActions,
+  scoreActions,
+  highScoreActions,
+} from '../store';
+import { randomizeQuestion } from '../constants';
 import Button from '../components/Button/Button';
 import './Quiz.css';
-
-import End from './End';
+import Result from '../components/Result/Result';
+import Score from '../components/Score/Score';
 
 function Quiz() {
   const [disabled, setDisabled] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const randomizeQuestion = QUIZ_DATA.sort(() =>
-    Math.floor(Math.random() * (QUIZ_DATA.length + 1))
-  );
 
   const currentQuestionIndex = useSelector(
     (state) => state.currentQuestionIndex.currentQuestionIndex
   );
 
-  const result = useSelector((state) => state.result.result);
+  const score = useSelector((state) => state.score.score);
 
   const nextQuestionHandler = () => {
     dispatch(currentQuestionActions.setCurrentQuestionIndex());
     setDisabled(false);
+
     if (currentQuestionIndex === randomizeQuestion.length - 1) {
+      dispatch(highScoreActions.setHighScore(score));
+
+      dispatch(currentQuestionActions.resetState());
       navigate('/end');
     }
   };
-
-  console.log(currentQuestionIndex);
 
   const answerSelectHandler = (e) => {
     const selectedAnswer = e.target.value;
@@ -40,6 +45,7 @@ function Quiz() {
     ).option;
     if (selectedAnswer === correctAnswer) {
       dispatch(resultActions.correct());
+      dispatch(scoreActions.addPoints());
     } else {
       dispatch(resultActions.incorrect());
     }
@@ -48,7 +54,9 @@ function Quiz() {
 
   return (
     <div className='quiz-container'>
-      {result}
+      <Score></Score>
+      <Result></Result>
+
       <div className='quiz-container__question'>
         {randomizeQuestion[currentQuestionIndex].question}
       </div>

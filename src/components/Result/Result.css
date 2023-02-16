@@ -1,0 +1,15 @@
+.Result {
+  font-weight: 700;
+  font-size: 4rem;
+  text-align: center;
+  text-shadow: 2px 2px 2px #040124a5;
+  margin-bottom: 5%;
+}
+
+.Result--correct {
+  color: #00ff6a;
+}
+
+.Result--incorrect {
+  color: rgb(230, 20, 20);
+}
