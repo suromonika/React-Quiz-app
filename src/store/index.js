@@ -77,7 +77,7 @@ const scoreSlice = createSlice({
   initialState: initialScoreState,
   reducers: {
     addPoints(state) {
-      state.score = state.score + 100;
+      state.score = state.score + 10000;
     },
 
     resetState(state) {
@@ -98,8 +98,8 @@ const highScoreSlice = createSlice({
   reducers: {
     setHighScore(state, action) {
       const newHighScore = [...state.highScore, action.payload];
-      const sortedScores = newHighScore.sort((a, b) => b - a);
-      sortedScores.length = 5;
+      const sortedScores = newHighScore.sort((a, b) => b - a).slice(0, 5);
+
       window.localStorage.setItem(HIGH_SCORE_KEY, JSON.stringify(sortedScores));
     },
   },

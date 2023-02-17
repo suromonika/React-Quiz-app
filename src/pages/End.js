@@ -7,7 +7,6 @@ import './End.css';
 
 function End() {
   const dispatch = useDispatch();
-
   const tryAgainHandler = () => {
     dispatch(scoreActions.resetState());
     dispatch(randomizedDataActions.randomize());
