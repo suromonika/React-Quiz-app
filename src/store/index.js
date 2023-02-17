@@ -1,6 +1,7 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
-import { HIGH_SCORE_KEY } from '../constants';
+import { HIGH_SCORE_KEY, randomizedQuestion } from '../constants';
 
+//Sets new question index when needed
 const initialCurrentQuestionIndexState = { currentQuestionIndex: 0 };
 
 const currentQuestionIndexSlice = createSlice({
@@ -17,6 +18,22 @@ const currentQuestionIndexSlice = createSlice({
   },
 });
 
+//Randomizes questions
+const initialRandomizedDataState = { randomizedQuestions: randomizedQuestion };
+
+const randomizedDataSlice = createSlice({
+  name: 'randomizedQuestions',
+  initialState: initialRandomizedDataState,
+  reducers: {
+    randomize(state) {
+      state.randomizedQuestions = state.randomizedQuestions.sort(
+        () => 0.5 - Math.random()
+      );
+    },
+  },
+});
+
+//Shouws if answer is correct or incorrect
 const initialResultState = { result: null };
 
 const resultSlice = createSlice({
@@ -32,6 +49,25 @@ const resultSlice = createSlice({
   },
 });
 
+//Disables buttons after answer is picked
+
+const initialDisabledState = { disabled: false };
+
+const disabledSlice = createSlice({
+  name: 'disabled',
+  initialState: initialDisabledState,
+  reducers: {
+    disable(state) {
+      state.disabled = true;
+    },
+
+    enable(state) {
+      state.disabled = false;
+    },
+  },
+});
+
+//Accumulates score
 const initialScoreState = {
   score: 0,
 };
@@ -41,7 +77,7 @@ const scoreSlice = createSlice({
   initialState: initialScoreState,
   reducers: {
     addPoints(state) {
-      state.score = state.score + 100;
+      state.score = state.score + 2000;
     },
 
     resetState(state) {
@@ -50,9 +86,10 @@ const scoreSlice = createSlice({
   },
 });
 
+//Saves top 5 high scores
+
 const highScoreInitialState = {
   highScore: JSON.parse(window.localStorage.getItem(HIGH_SCORE_KEY)) || [],
-  time: '',
 };
 
 const highScoreSlice = createSlice({
@@ -74,15 +111,21 @@ const store = configureStore({
     result: resultSlice.reducer,
     score: scoreSlice.reducer,
     highScore: highScoreSlice.reducer,
+    randomizedQuestions: randomizedDataSlice.reducer,
+    disabled: disabledSlice.reducer,
   },
 });
 
 export const currentQuestionActions = currentQuestionIndexSlice.actions;
+
+export const disabledActions = disabledSlice.actions;
 
 export const resultActions = resultSlice.actions;
 
 export const scoreActions = scoreSlice.actions;
 
 export const highScoreActions = highScoreSlice.actions;
+
+export const randomizedDataActions = randomizedDataSlice.actions;
 
 export default store;

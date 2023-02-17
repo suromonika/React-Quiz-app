@@ -94,8 +94,9 @@ export const QUIZ_DATA = [
   },
 ];
 
-export const randomizeQuestion = QUIZ_DATA.sort(() =>
-  Math.floor(Math.random() * (QUIZ_DATA.length + 1))
-);
+// export const randomizeQuestion = QUIZ_DATA.slice().sort(() =>
+//   Math.floor(Math.random() * QUIZ_DATA.length)
+// );
+export const randomizedQuestion = QUIZ_DATA.sort(() => 0.5 - Math.random());
 
 export const HIGH_SCORE_KEY = 'HIGH_SCORE_KEY';
