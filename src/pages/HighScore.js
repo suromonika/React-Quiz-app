@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import './HighScore.css';
 
 function HighScore() {
-  const highScore = useSelector((state) => state.highScore);
+  const highScore = useSelector((state) => state.highScore.highScore);
 
   console.log(highScore);
 

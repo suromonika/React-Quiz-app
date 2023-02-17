@@ -1,4 +1,4 @@
-import { createSlice, configureStore, current } from '@reduxjs/toolkit';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
 import { HIGH_SCORE_KEY } from '../constants';
 
 const initialCurrentQuestionIndexState = { currentQuestionIndex: 0 };
@@ -50,16 +50,20 @@ const scoreSlice = createSlice({
   },
 });
 
-const highScoreInitialState =
-  JSON.parse(window.localStorage.getItem(HIGH_SCORE_KEY)) || [];
+const highScoreInitialState = {
+  highScore: JSON.parse(window.localStorage.getItem(HIGH_SCORE_KEY)) || [],
+  time: '',
+};
 
 const highScoreSlice = createSlice({
   name: 'highScore',
   initialState: highScoreInitialState,
   reducers: {
     setHighScore(state, action) {
-      const newHighScore = state.highScore.concat(action.payload);
-      window.localStorage.setItem(HIGH_SCORE_KEY, JSON.stringify(newHighScore));
+      const newHighScore = [...state.highScore, action.payload];
+      const sortedScores = newHighScore.sort((a, b) => b - a);
+      sortedScores.length = 5;
+      window.localStorage.setItem(HIGH_SCORE_KEY, JSON.stringify(sortedScores));
     },
   },
 });

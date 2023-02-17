@@ -24,17 +24,14 @@ function Quiz() {
     (state) => state.currentQuestionIndex.currentQuestionIndex
   );
 
-  const score = useSelector((state) => state.score.score);
-
   const nextQuestionHandler = () => {
     dispatch(currentQuestionActions.setCurrentQuestionIndex());
     setDisabled(false);
 
     if (currentQuestionIndex === randomizeQuestion.length - 1) {
-      dispatch(highScoreActions.setHighScore(score));
+      navigate('/end');
 
       dispatch(currentQuestionActions.resetState());
-      navigate('/end');
     }
   };
 
