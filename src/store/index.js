@@ -77,7 +77,7 @@ const scoreSlice = createSlice({
   initialState: initialScoreState,
   reducers: {
     addPoints(state) {
-      state.score = state.score + 2000;
+      state.score = state.score + 100;
     },
 
     resetState(state) {
